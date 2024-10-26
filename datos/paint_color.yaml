@@ -1,0 +1,30 @@
+name: color
+children:
+  - name: dark
+    children:
+      - name: brownish
+        children:
+          - name: brown
+          - name: beige
+          - name: bronze
+      - name: others
+        children:
+          - name: purple
+          - name: black
+          - name: grey
+          - name: violet
+  - name: light
+    children:
+      - name: colorful
+        children:
+          - name: red
+          - name: yellow
+          - name: orange
+          - name: gold
+          - name: blue
+      - name: others_2
+        children:
+          - name: custom
+          - name: white
+          - name: silver
+          - name: green

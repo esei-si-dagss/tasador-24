@@ -1,0 +1,342 @@
+[
+  {
+    "engine": {
+      "drive": "rwd",
+      "fuel": "gas",
+      "transmission": "manual"
+    },
+    "miles": 75876,
+    "model": {
+      "make": "i10",
+      "manufacturer": "hyundai"
+    },
+    "paint_color": "black",
+    "price": 3182,
+    "title_status": "clean",
+    "type": "compact",
+    "year": 2008
+  },
+  {
+    "engine": {
+      "drive": "rwd",
+      "fuel": "gas",
+      "transmission": "manual"
+    },
+    "miles": 70500,
+    "model": {
+      "make": "matiz",
+      "manufacturer": "chevrolet"
+    },
+    "paint_color": "black",
+    "price": 2590,
+    "title_status": "clean",
+    "type": "compact",
+    "year": 2009
+  },
+  {
+    "engine": {
+      "drive": "fwd",
+      "fuel": "gas",
+      "transmission": "manual"
+    },
+    "miles": 89374,
+    "model": {
+      "make": "c3",
+      "manufacturer": "citroen"
+    },
+    "paint_color": "black",
+    "price": 3663,
+    "title_status": "rebuilt",
+    "type": "compact",
+    "year": 2006
+  },
+  {
+    "engine": {
+      "drive": "fwd",
+      "fuel": "gas",
+      "transmission": "manual"
+    },
+    "miles": 232000,
+    "model": {
+      "make": "fabia",
+      "manufacturer": "skoda"
+    },
+    "paint_color": "black",
+    "price": 2590,
+    "title_status": "rebuilt",
+    "type": "compact",
+    "year": 2003
+  },
+  {
+    "engine": {
+      "drive": "fwd",
+      "fuel": "gas",
+      "transmission": "manual"
+    },
+    "miles": 330000,
+    "model": {
+      "make": "x5",
+      "manufacturer": "bmw"
+    },
+    "paint_color": "black",
+    "price": 2960,
+    "title_status": "rebuilt",
+    "type": "compact",
+    "year": 2001
+  },
+  {
+    "engine": {
+      "drive": "4wd",
+      "fuel": "gas",
+      "transmission": "manual"
+    },
+    "miles": 77,
+    "model": {
+      "make": "octavia",
+      "manufacturer": "skoda"
+    },
+    "paint_color": "black",
+    "price": 8992,
+    "title_status": "clean",
+    "type": "compact",
+    "year": 2012
+  },
+  {
+    "engine": {
+      "drive": "4wd",
+      "fuel": "gas",
+      "transmission": "manual"
+    },
+    "miles": 122179,
+    "model": {
+      "make": "auris",
+      "manufacturer": "toyota"
+    },
+    "paint_color": "black",
+    "price": 10621,
+    "title_status": "clean",
+    "type": "compact",
+    "year": 2012
+  },
+  {
+    "engine": {
+      "drive": "rwd",
+      "fuel": "gas",
+      "transmission": "manual"
+    },
+    "miles": 155000,
+    "model": {
+      "make": "superb",
+      "manufacturer": "skoda"
+    },
+    "paint_color": "black",
+    "price": 4034,
+    "title_status": "clean",
+    "type": "compact",
+    "year": 2004
+  },
+  {
+    "engine": {
+      "drive": "fwd",
+      "fuel": "gas",
+      "transmission": "manual"
+    },
+    "miles": 75000,
+    "model": {
+      "make": "fiesta",
+      "manufacturer": "ford"
+    },
+    "paint_color": "black",
+    "price": 2035,
+    "title_status": "clean",
+    "type": "compact",
+    "year": 2003
+  },
+  {
+    "engine": {
+      "drive": "fwd",
+      "fuel": "gas",
+      "transmission": "manual"
+    },
+    "miles": 198000,
+    "model": {
+      "make": "felicia",
+      "manufacturer": "skoda"
+    },
+    "paint_color": "black",
+    "price": 1073,
+    "title_status": "rebuilt",
+    "type": "compact",
+    "year": 1998
+  },
+  {
+    "engine": {
+      "drive": "rwd",
+      "fuel": "gas",
+      "transmission": "manual"
+    },
+    "miles": 139000,
+    "model": {
+      "make": "cayenne",
+      "manufacturer": "porsche"
+    },
+    "paint_color": "black",
+    "price": 29570,
+    "title_status": "clean",
+    "type": "compact",
+    "year": 2009
+  },
+  {
+    "engine": {
+      "drive": "rwd",
+      "fuel": "gas",
+      "transmission": "manual"
+    },
+    "miles": 180000,
+    "model": {
+      "make": "xsara-picasso",
+      "manufacturer": "citroen"
+    },
+    "paint_color": "black",
+    "price": 2405,
+    "title_status": "clean",
+    "type": "compact",
+    "year": 2002
+  },
+  {
+    "engine": {
+      "drive": "4wd",
+      "fuel": "diesel",
+      "transmission": "manual"
+    },
+    "miles": 51000,
+    "model": {
+      "make": "superb",
+      "manufacturer": "skoda"
+    },
+    "paint_color": "black",
+    "price": 23685,
+    "title_status": "clean",
+    "type": "compact",
+    "year": 2013
+  },
+  {
+    "engine": {
+      "drive": "fwd",
+      "fuel": "gas",
+      "transmission": "manual"
+    },
+    "miles": 108000,
+    "model": {
+      "make": "rav4",
+      "manufacturer": "toyota"
+    },
+    "paint_color": "black",
+    "price": 999,
+    "title_status": "rebuilt",
+    "type": "compact",
+    "year": 1080
+  },
+  {
+    "engine": {
+      "drive": "fwd",
+      "fuel": "diesel",
+      "transmission": "manual"
+    },
+    "miles": 138000,
+    "model": {
+      "make": "transit",
+      "manufacturer": "ford"
+    },
+    "paint_color": "black",
+    "price": 5514,
+    "title_status": "rebuilt",
+    "type": "compact",
+    "year": 2009
+  },
+  {
+    "engine": {
+      "drive": "fwd",
+      "fuel": "gas",
+      "transmission": "manual"
+    },
+    "miles": 165513,
+    "model": {
+      "make": "mondeo",
+      "manufacturer": "ford"
+    },
+    "paint_color": "black",
+    "price": 155,
+    "title_status": "rebuilt",
+    "type": "compact",
+    "year": 2001
+  },
+  {
+    "engine": {
+      "drive": "rwd",
+      "fuel": "gas",
+      "transmission": "manual"
+    },
+    "miles": 264000,
+    "model": {
+      "make": "transit",
+      "manufacturer": "ford"
+    },
+    "paint_color": "black",
+    "price": 2516,
+    "title_status": "clean",
+    "type": "compact",
+    "year": 2005
+  },
+  {
+    "engine": {
+      "drive": "4wd",
+      "fuel": "gas",
+      "transmission": "manual"
+    },
+    "miles": 167000,
+    "model": {
+      "make": "galaxy",
+      "manufacturer": "ford"
+    },
+    "paint_color": "black",
+    "price": 14796,
+    "title_status": "clean",
+    "type": "compact",
+    "year": 1670
+  },
+  {
+    "engine": {
+      "drive": "fwd",
+      "fuel": "diesel",
+      "transmission": "manual"
+    },
+    "miles": 243215,
+    "model": {
+      "make": "a4",
+      "manufacturer": "audi"
+    },
+    "paint_color": "black",
+    "price": 5107,
+    "title_status": "rebuilt",
+    "type": "compact",
+    "year": 2006
+  },
+  {
+    "engine": {
+      "drive": "rwd",
+      "fuel": "gas",
+      "transmission": "manual"
+    },
+    "miles": 100,
+    "model": {
+      "make": "corsa",
+      "manufacturer": "opel"
+    },
+    "paint_color": "black",
+    "price": 2202,
+    "title_status": "clean",
+    "type": "compact",
+    "year": 2003
+  }
+]
