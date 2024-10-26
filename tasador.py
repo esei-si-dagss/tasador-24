@@ -129,8 +129,8 @@ class TasadorCBR(CBR):
             similaridades.append(result.similarities[i].value)
         
         # DEBUG
-        if self.DEBUG is not None:
-            self.DEBUG.recuperar(caso_a_resolver, casos_similares, similaridades)    
+        if self.DEBUG : self.DEBUG.debug_recuperar(caso_a_resolver, casos_similares, similaridades)
+          
         return (casos_similares, similaridades)
     
     def reutilizar(self, caso_a_resolver, casos_similares, similaridades):
@@ -154,8 +154,8 @@ class TasadorCBR(CBR):
         caso_resuelto['price'] = price_predicho
         
         # DEBUG
-        if self.DEBUG is not None:
-            self.DEBUG.reutilizar(caso_resuelto)    
+        if self.DEBUG : self.DEBUG.debug_reutilizar(caso_resuelto)
+        
         return caso_resuelto
                  
         
@@ -182,11 +182,10 @@ class TasadorCBR(CBR):
             caso_revisado['price'] = caso_revisado['_meta']['price_real']
 
         # DEBUG    
-        if self.DEBUG is not None:
-            self.DEBUG.revisar(caso_revisado, 
-                               es_exito=caso_revisado['_meta']['exito'], 
-                               es_corregido=caso_revisado['_meta']['corregido'])    
-
+        if self.DEBUG : self.DEBUG.debug_revisar(caso_revisado, 
+                                               es_exito=caso_revisado['_meta']['exito'], 
+                                               es_corregido=caso_revisado['_meta']['corregido'])
+        
         return caso_revisado
 
     def retener(self, caso_revisado, caso_a_resolver=None, casos_similares=None, similaridades=None):
@@ -198,8 +197,7 @@ class TasadorCBR(CBR):
             es_retenido = True
         
         # DEBUG    
-        if self.DEBUG is not None:
-            self.DEBUG.retener(caso_revisado, es_retenido=es_retenido)
+        if self.DEBUG : self.DEBUG.debug_retener(caso_revisado, es_retenido=es_retenido)
 
 
 

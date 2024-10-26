@@ -1,0 +1,65 @@
+@startuml
+hide circle
+
+    namespace core {
+        class CBR <<abstract>> {
+            Map<id,Caso> base_de_casos 
+            int num_similares
+            inicializar_caso(caso, id)
+            ciclo_cbr(caso_a_resolver, id_caso): Caso
+            {abstract} recuperar(caso_a_resolver): Tupla<Lista<Caso>, Lista<float>>
+            {abstract} reutilizar(caso_a_resolver, casos_similares, similaridades): Caso
+            {abstract} revisar(caso_resuelto, caso_a_resolver, casos_similares, similaridades): Caso
+            {abstract} retener(caso_revisado, caso_a_resolver, casos_similares, similaridades)
+        }
+
+note left of CBR
+métodos "abstractos"
+ recuperar(), reutilizar(), 
+ revisar() y retener()
+ son implementados en 
+ las subclases
+
+método ciclo_cbr() es
+ común a todas las
+ subclases  
+end note
+
+        class DEBUG_CBR {
+            prettyprint_caso
+            debug_mensaje(etiqueta, mensaje)
+            debug_recuperar(caso, similares, scores) 
+            debug_reutilizar(caso_resuelto)
+            debug_revisar(caso_revisado, es_exito, es_corregido)  
+            debug_retener(caso_retenido, es_retenido)   
+        }
+    }
+
+    namespace tasador {
+        class TasadorCBR {
+            Taxonomy taxonomia_colors
+            Taxonomy taxonomia_manufacturers
+            float umbral_precio
+            BaseRetriver retriever
+            CBR_DEBUG DEBUG
+            recuperar(caso_a_resolver): Tupla<Lista<Caso>, Lista<float>>
+            reutilizar(caso_a_resolver, casos_similares, similaridades): Caso
+            revisar(caso_resuelto, caso_a_resolver, casos_similares, similaridades): Caso
+            retener(caso_revisado, caso_a_resolver, casos_similares, similaridades)
+            prettyprint_caso(caso): String
+        }
+    }
+
+    CBR <|-- TasadorCBR : hereda
+
+    TasadorCBR ..> cbrkit.retrieval.BaseRetriever : usa
+    TasadorCBR ..> cbrkit.sim.string.taxonomy.Taxonomy : usa
+
+    TasadorCBR ..> DEBUG_CBR : usa
+   
+    main_py ...> TasadorCBR : instancia e invoca
+
+@enduml
+
+' editar con https://www.plantuml.com/plantuml/uml/ 
+' o con https://www.planttext.com/
