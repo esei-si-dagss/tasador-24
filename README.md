@@ -16,7 +16,7 @@ Ejemplo de una herramienta de tasación de coches usados a partir de sus caracte
 
 ### 1.1 Dependencias
 
-CBRKit es un proyecto en desarrollo y la librería está en cambio constante. Para este ejemplo y para la realización de la práctica de CBR se ha trabajará con la **versión 0.14.2** (la última compatible con Python 3.11, [código fuente descargable](https://github.com/wi2trier/cbrkit/archive/refs/tags/v0.14.2.zip))
+CBRKkt es un proyecto en desarrollo y la librería está en cambio constante. Para este ejemplo y para la realización de la práctica de CBR se ha trabajará con la **versión 0.14.2** (la última compatible con Python 3.11, [código fuente descargable](https://github.com/wi2trier/cbrkit/archive/refs/tags/v0.14.2.zip))
 
 ```sh
 $ pip install -r requirements.txt
@@ -162,7 +162,7 @@ Más detalles:
 
 ### 2.1 Resumen CBRkit
 
-- [Resumen CBRkit (v. 0.14.2)](doc/resumen_cbrkit.md) [[pdf](doc/resument_cbrkit.pdf)]
+- [Resumen CBRkit (v. 0.14.2)](doc/resumen_cbrkit.md) [[pdf](doc/resumen_cbrkit.pdf)]
 
 
 
@@ -170,15 +170,83 @@ Más detalles:
 
 ### 3.1 Módulo `core.py`
 
+El módulo `cbr.py` establece una estructura básica para implementar un sistema de Razonamiento Basado en Casos (CBR).
+-  La clase `CBR` define y estructura las fases principales del **ciclo CBR** y sirve como base para implementaciones concretas del ciclo CBR adaptadas a problemas específicos.
+- La clase `CBR_DEBUG` permite la depuración en cada paso del ciclo, proporcionando mensajes sobre el estado del caso a resolver a medida que se avanza en las fases del proceso de razonamiento.
+
+
+#### Clase `CBR`
+
+La **clase `CBR`** implementa el **ciclo básico** de Razonamiento Basado en Casos, encargándose de manejar la base de casos y coordinando la ejecución de las fases **recuperar**, **reutilizar**, **revisar** y **retener** sobre el caso a resolver. 
+
+- La clase `CBR` implementa el ciclo CBR y deben ser las clases que hereden de `CBR` las que aporten la lógica para implementar las 4 fases del ciclo CBR adaptadas al problema concreto que resuelvan.
 
 <img src="doc/ciclo_cbr.png" alt="ciclo_cbr" style="zoom:80%;" />  
+
+##### Métodos de la clase `CBR`
+
+1. **Constructor [`__init__(base_de_casos, num_casos_similares)`]**: Inicializa una instancia de la clase `CBR` con una base de datos de casos (`base_de_casos`) y un número predeterminado de casos similares a recuperar (`num_casos_similares`)
+2. **`ciclo_cbr(caso_a_resolver, id_caso)`**: Implementa el **ciclo principal del CBR**, que recorre todas las fases: (1) inicializa el `caso_a_resolver`, (2) recupera los `casos_similares`, (3) reutiliza el conocimiento para resolver el caso, (4) revisa la solución propuesta y (5) decide si se retiene el `caso_revisado`.
+   Por último, devuelve el `caso_revisado` como resultado final del ciclo.
+3. **`inicializar_caso(caso, id)`**: Recibe un caso (`caso`) y un identificador opcional (`id`).
+   - Crea un **atributo especial `_meta` ** en el caso para almacenar información adicional utilizada para el seguimiento del caso durante el ciclo CBR.
+   - Si se proporciona el `id`, lo agrega a los metadatos del caso (`_meta`). Si no se proporciona, intenta extraer un identificador de las claves `id` o `uuid` del caso.
+4. **`recuperar(caso_a_resolver)`** (método _abstracto_ sin implementación): Método encargado de la lógica para recuperar casos similares en la `base_de_casos`
+   - Debe de  devolver la lista de casos similares junto con el valor de la métrica de similaridad de cada uno de ellos respecto al `caso a resolver`
+5. **`reutilizar(caso_a_resolver, casos_similares, similaridades)`** (método _abstracto_ sin implementación): Método encargado de la lógica que reutiliza el conocimiento de los casos similares para adaptar o modificar el caso actual y proponer una solución
+   - Debe de devolver el `caso_resuelto` que se se pasará al método `revisar()`
+6. **`revisar(caso_resuelto, caso_a_resolver, casos_similares, similaridades)`** (método _abstracto_ sin implementación): Método que permite la revisión del `caso_resuelto` para verificar si la solución es adecuada o requiere ajustes
+   - El método puede recibir y manejar el `caso_a_resolver` original, los `casos_similares` recuperados y sus `similaridades` para permitir lógicas de revisión del `caso_resuelto` que utilicen esa información.
+   - Debe devolver el `caso_revisado` que se pasará al método `retener()`. En dicho `caso_revisado` se habrá tomado nota en su atributo `_meta` del resultado (éxtio o fracaso) del proceso de revisión, junto con otra información que pudiera ser relevante.
+7. **`retener(caso_revisado, caso_a_resolver, casos_similares, similaridades)`** (método _abstracto_ sin implementación): Método con la lógica que decide si se retiene el `caso_revisado` en la `base_de_casos` al considerarlo útil para futuras consultas
+   - El método puede recibir y manejar el `caso_a_resolver` original, los `casos_similares` recuperados y sus `similaridades` para permitir lógicas de retención del `caso_revisado` que utilicen esa información.
+
+#### Clase `CBR_DEBUG`
+
+La clase `CBR_DEBUG` permite la depuración del proceso CBR, proporcionando mensajes en consola sobre el estado de cada fase del ciclo de razonamiento.
+
+- En el constructor de la clase recibe una función `prettyprint_caso()`, específica para los casos de cada problema, que se encargará de formatear y presentar la información específica de cada caso
+- Proporciona métodos de _debug_ que muestran la actividad de las las cuatro fases del ciclo CBR: `debug_recuperar()`, `debug_reutilizar()`, `debug_revisar()` y `debug_retener()`. 
+
+
 
 
 ### 3.2 Módulo `tasador.py`
 
+El módulo `tasador.py` define la clase **`TasadorCBR`** que a su vez **extiende** (hereda de) la clase **`core.CBR`** y proporciona una **implementación de las 4 fases del ciclo CBR** para resolver un problema de **tasación de vehículos** en base a sus características (atributos como marca, modelo, color, millas recorridas, etc). 
 
+- Para gestionar la **`base_de_casos`** del problema e implementar las **métricas de similaridad** que se emplean en la función `recuperar()` se hace uso de los componentes de la **librería CBRkit**
+- El resto de funciones del ciclo CBR, `reutilizar()`, `revisar()` y `retener()`, se implementan completamente con código propio.
 
-<img src="doc/clases.png" alt="ciclo_cbr" style="zoom:80%;" />
+<img src="doc/clases.png" alt="ciclo_cbr" style="zoom:90%;" />
 
+#### Métodos de la clase `TasadorCBR`
 
+1. **Constructor (`__init__(...)`):**  Inicializa el tasador con una `base_de_casos` y el `num_casos_similares`, junto con parámetros específicos del problema, como los archivos YAML con las taxonomías de colores y fabricantes, así como un umbral para verificar la precisión del precio estimado.
+   - Si `debug` es `True`, activa la depuración con `CBR_DEBUG`.
+   - Configura un `Retriever` de **CBRkit** que define cómo recuperar casos similares en base a criterios de similaridad (por color, fabricante, millas, etc).
+2. **`inicializar_retriever(...)`:** Carga las funciones de similaridad específicas para distintos atributos de los vehículos que codifican los casos de este sistema CBR
+   - Funciones de similaridad específicas para atributos individuales:
+     - **color** y **marca**: usa taxonomías para calcular similaridades con el método `wu_palmer()`.
+     - el objeto anidad con la **marca y modelo**: utiliza la distancia de Levenshtein para el atributo `make` (modelo) y un agregador que calcula un promedio ponderado con la similaridad taxómica de `manufacturer` (marca)
+     - **millas**: define una función propia `miles_similarity()` que evalúa la similitud según la diferencia en millas
+     - **motor**: establece similaridades para los objetos anidados `engine` basadas en la tracción (`drive`), combustible (`fuel`) y transmisión (`transmission`), usando una función de agregación con pesos
+   - Crea una función de similaridad global (`case_similarity`) que agrada todas las similaridades parciales a nivel de atributo 
+   - Usa `case_similarity` para inicializar un `Retriever`, creado con la función `cbrkit.retrieval.build()` de **CBRkit** y configurado para recuperar el número de casos similares especificado en el constructor de la clase
+3. **`prettyprint_caso(caso, meta)`:** Función auxiliar utilizada para crear un objeto `CBR_DEBUG`
+   - Da formato a la presentación de un caso, mostrando la marca, modelo, año, millas y precio.
+   - Incluye los metadatos del caso, como `id`, `precio_real`, `precio_predicho`, `exito` y `corregido` si están disponibles.
+4. **`inicializar_caso(caso, id)`:** Sobreescribe la función `inicializar_caso()` de la superclase `CBR`, incializando el atributo `_meta` con metadatos necesarios para el problema de tasación, como `price_real`, `price_predicho`, `exito` y `corregido`.
+5. **`recuperar(caso_a_resolver)`:** Implementa/**sobreescribe** la función **`recuperar()`** de la superclase `CBR` para proporcionar una implementación adecuada al problema de la tasación de vehículos.
+   - Mediante la función `cbrkit.retrieval.apply()` de **CBRkit**, utiliza el `Retriever` definido en `incializar_retriever()` para calcular la similaridad de cada caso de la base de caso con el nuevo `caso_a_resolver` 
+   - Devuelve una lista ordenda con los `casos_similares` y una lista ordenada con las similaridades de cada uno de ellos. 
+6. **`reutilizar(caso_a_resolver, casos_similares, similaridades)`:** Implementa/**sobreescribe** la función **`reutilizar()`** de la superclase `CBR` para proporcionar una implementación adecuada al problema de la tasación de vehículos.
+   - Calcula el precio estimado del vehículo (`price_predicho`) como el promedio de los precios de los casos similares recuperados.
+   - Ajusta el metadato `price_predicho` en el caso resultante y lo devuelve
+7. **`revisar(caso_resuelto, casos_similares, similaridades)`:** Implementa/**sobreescribe** la función **`revisar()`** de la superclase `CBR` para proporcionar una implementación adecuada al problema de la tasación de vehículos.
+   - Compara el precio predicho con el precio real del caso y evalúa si la diferencia es aceptable (por debajo del `umbral_precio`).
+   - Si la predicción es exitosa (la diferencia es pequeña), marca el caso como exitoso; si no, corrige el precio usando el precio real.
+   - Anota las decisiones de éxito/fracaso y de correccion en el atributo `_meta`del `caso_revisado` que devuelve como valor de retorno.
+8. **`retener(caso_revisado, casos_similares, similaridades)`:** Implementa/**sobreescribe** la función **`retener()`** de la superclase `CBR` para proporcionar una implementación adecuada al problema de la tasación de vehículos.
+   - Decide retener (agregar) en la `base_de_casos` aquellos casos que fueron corregidos. Esto permite al sistema aprender y ajustarse a partir de los errores.
 

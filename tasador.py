@@ -2,7 +2,6 @@ from core import CBR, CBR_DEBUG
 
 import cbrkit
 
-import pprint
 
 
 class TasadorCBR(CBR):

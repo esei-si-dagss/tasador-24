@@ -1,5 +1,3 @@
-
-
 class CBR:
     def __init__(self, base_de_casos, num_casos_similares = 1 ):
         self.base_de_casos = base_de_casos
