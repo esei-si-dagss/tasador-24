@@ -1,4 +1,4 @@
-# Resumen CBRKit
+# Resumen CBRkit
 [TOC]
 
 CBRkit es un toolkit modular en Python para el Razonamiento Basado en Casos. Actualmente se encuentra en desarrollo y en su versión actual permite cargar casos, definir medidas de similitud y realizar la recuperación sobre bases de casos en memoria. 
@@ -16,28 +16,30 @@ Los siguientes módulos son parte de la versión actual de CBRkit:
 - [**cbrkit.retrieval**](https://wi2trier.github.io/cbrkit/cbrkit/retrieval.html): Funciones para definir y aplicar _pipelines_ de recuperación.
 - **cbrkit.typing**: Definiciones de tipos genéricos para definir funciones personalizadas.
 
+---
+
 
 
 ## 1. Carga de casos (módulo [cbrkit.loaders](https://wi2trier.github.io/cbrkit/cbrkit/loaders.html))
 
 La librería CBRkit incluye un módulo de cargadores que permite leer datos de diferentes formatos de archivo y convertirlos en una "base de casos". Los mismos métodos pueden emplearse para cargar "consultas" (casos a resolver). 
-*  Dependiendo del formato de carga, la "base de casos" (_Casebase_ en terminología de CBRkit) será:
+
+Dependiendo del formato de carga, la "base de casos" (_Casebase_ en terminología de CBRkit) será:
   - un "diccionario de diccionarios" o un "diccionario de objetos" para las funciones de carga desde:
     -  JSON (`dict[typing.Any, typing.Any]`)
     -  YAML (`dict[typing.Any, typing.Any]`)
     -  CSV (`dict[int, dict[str, str]]`)
     -  TOML (`dict[str, typing.Any]`)
     -  XML (`dict[str, typing.Any]`)
-  
-  - un ''mapeo'' de _Series_ para la función `dataframe()`que carga _DataFrames_ de Pandas (`Mapping[typing.Any, pandas.core.series.Series]` )
-
+  - un ''mapeo'' de [_Series_](https://pandas.pydata.org/docs/reference/series.html) para la función `dataframe()`que carga [_DataFrames_](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html) de [Pandas](https://pandas.pydata.org/) (`Mapping[typing.Any, pandas.core.series.Series]` )
   - un "mapeo" de un _tipo clave_ a un _tipo valor_ (el tipo del caso) para las funciones de carga desde archivos y directorios (`Mapping[typing.Any, typing.Any] `)
-  
-   **Nota:** En las versiones más recientes de CBRkit (v0.18.0) se está unificando el tipado de los elementos de la librería y se migra hacia un tipo de dato _Casebase_ que unificará esta variedad de formatos internos para las bases de casos.
-* Adicionalmente, es posible forzar la validación de tipo de los casos cargados utilizando definiciones de la libreria [Pydantic](https://docs.pydantic.dev/latest/)   
-  
 
-**Funciones principales:**
+**Nota:** En las versiones más recientes de CBRkit (v0.18.0) se está unificando el tipado de los elementos de la librería y se migra hacia un tipo de dato _Casebase_ que unificará toda esta variedad de formatos internos para las bases de casos.
+
+Adicionalmente, en la carga de "bases de conocimiento" es posible forzar la validación de tipo de los casos cargados utilizando definiciones de la libreria [Pydantic](https://docs.pydantic.dev/latest/)   
+
+
+### 1.1 Funciones de carga de "bases de casos"
 
 - `cbrkit.loaders.csv(path)`: Lee un archivo CSV y lo convierte en un diccionario.
 - `cbrkit.loaders.json(path)`: Lee un archivo JSON y lo convierte en un diccionario.
@@ -55,6 +57,8 @@ Las mismas funciones que se utilizan para cargar las "bases de casos" se puden u
 - En ambos caso la "base de casos" cargada será un diccionario Python con los casos. 
 - En el caso de que el fichero de entrada contuviera lista de objetos se usará como clave e identificador del caso su índice en la lista/array.
 - Si el fichero JSON de entrada ya era un diccionario/tabla hash se mantienen las claves utilizadas en el mismo.
+
+---
 
 
 
@@ -84,6 +88,8 @@ El módulo **cbrkit.retrieval** ofrece clases y funciones de utilidad para dar s
         - atributo `casebase`: base casos (= diccionario) con los _n_ casos más similares
         - atributo `steps`: lista ordenada de objetos `ResultStep` con la información de los resultados intermedios en el caso de utilizar multiples _Retrievers_
    - La clase `ResultStep` representa la información de cada paso en el proceso de recuperación, incluyendo similitudes y rankings.
+
+---
 
 
 
@@ -164,13 +170,48 @@ El módulo **cbrkit.sim.strings** ofrece varias funciones para calcular la simil
 El módulo **cbrkit.sim.strings.taxonomy** permite trabajar con **taxonomías**, que son estructuras jerárquicas de categorías. 
 
 - Cada categoría se representa como un nodo con atributos como nombre, peso y posibles hijos
-
 - Las clases `Taxonomy` y `TaxonomyNode` del módulo se usan para representar la organización jerárquica de las categorías de la Taxonomía
-
 - Se dispone de la función/clase de utilidad  `load()` para cargar los elementos de una Taxonomía desde ficheros en formato JSON, YAML o TOML y de métricas de similaridad que explotan las relaciones jerárquicas de los nodos
 
+Ejemplo: Taxonomia `paint_color.yaml` (codificada en [YAML](https://es.wikipedia.org/wiki/YAML))
 
-#### Carga de Taxonomías y función de similaridad (`cbrkit.sim.strings.taxonomy.load()`)
+```yaml
+name: color
+children:
+  - name: dark
+    children:
+      - name: brownish
+        children:
+          - name: brown
+          - name: beige
+          - name: bronze
+      - name: others
+        children:
+          - name: purple
+          - name: black
+          - name: grey
+          - name: violet
+  - name: light
+    children:
+      - name: colorful
+        children:
+          - name: red
+          - name: yellow
+          - name: orange
+          - name: gold
+          - name: blue
+      - name: others_2
+        children:
+          - name: custom
+          - name: white
+          - name: silver
+          - name: green
+```
+
+
+
+
+#### 3.5.1 Carga de Taxonomías y función de similaridad (`cbrkit.sim.strings.taxonomy.load()`)
 
 La función/clase de utilidad [`load(path, measure)`]((https://wi2trier.github.io/cbrkit/cbrkit/sim/strings/taxonomy.html#load))) carga una taxonomía desde un archivo (en formato JSON, YAML o TOML) y devuelve una función para medir la similaridad entre categorias. 
 

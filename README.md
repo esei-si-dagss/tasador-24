@@ -10,9 +10,6 @@ Ejemplo de una herramienta de tasación de coches usados a partir de sus caracte
 
 - Hace uso de la [librería CBRKit](https://github.com/wi2trier/cbrkit/)  para (1) la carga y gestión de la base de casos y para (2) la implementación de las métricas de similaridad utilizadas en la fase`recuperar`
 
-  
-
-<img src="doc/ciclo_cbr.png" alt="ciclo_cbr" style="zoom:80%;" />  
 
 
 ## 1. Dependencias y ejecución del proyecto
@@ -153,7 +150,7 @@ El **fichero `main.py`** ofrece un ejemplo de uso de la clase `TasadorCBR`: carg
 El **fichero `*dividir_base_casos_json.py` * es un script de utilidad que a partir de una base de casos almacenada como array JSON extrae una serie de casos a resolver al azar y crea otra base de casos sin incluirlos.
 
 
-## 2. Uso de CBRKit
+## 2. Uso de CBRkit
 
 CBRkit es un toolkit modular en Python para el Razonamiento Basado en Casos. Actualmente se encuentra en desarrollo y en su versión actual permite cargar casos, definir medidas de similitud y realizar la recuperación sobre bases de casos en memoria. 
 
@@ -165,17 +162,19 @@ Más detalles:
 
 ### 2.1 Resumen CBRkit
 
-[Resumen CBRkit (v. 0.14.2)](doc/resumen_cbrkit.md) [[doc/resument_cbrkit.pdf](pdf)]
-
+- [Resumen CBRkit (v. 0.14.2)](doc/resumen_cbrkit.md) [[pdf](doc/resument_cbrkit.pdf)]
 
 
 
 ## 3. Uso del "miniframework" CBR
 
+### 3.1 Módulo `core.py`
 
 
-`<en obras>`
+<img src="doc/ciclo_cbr.png" alt="ciclo_cbr" style="zoom:80%;" />  
 
+
+### 3.2 Módulo `tasador.py`
 
 
 
