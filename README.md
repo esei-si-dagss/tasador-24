@@ -147,7 +147,7 @@ El **fichero `tasador.py`** incluye la implementación del tasador de vehículos
 
 El **fichero `main.py`** ofrece un ejemplo de uso de la clase `TasadorCBR`: carga la base de casos, crea y configura una instancia de `TasadorCBR` y la alimenta con los casos a resolver (coches a tasar)
 
-El **fichero `*dividir_base_casos_json.py` * es un script de utilidad que a partir de una base de casos almacenada como array JSON extrae una serie de casos a resolver al azar y crea otra base de casos sin incluirlos.
+El **fichero `*dividir_base_casos_json.py`** es un script de utilidad que a partir de una base de casos almacenada como array JSON extrae una serie de casos a resolver al azar y crea otra base de casos sin incluirlos.
 
 ### 1.4 Documentación online de CBRkit v. 0.14.2 (extra)
 CBRkit está en desarrollo y el API de la librería cambia con frecuencia. - En este ejemplo (y en el entregable) se propone usar la versión 0.14.2 de mediados de octubre de 2024.
