@@ -149,8 +149,47 @@ El **fichero `main.py`** ofrece un ejemplo de uso de la clase `TasadorCBR`: carg
 
 El **fichero `*dividir_base_casos_json.py` * es un script de utilidad que a partir de una base de casos almacenada como array JSON extrae una serie de casos a resolver al azar y crea otra base de casos sin incluirlos.
 
+### 1.4 Documentación online de CBRkit v. 0.14.2 (extra)
+CBRkit está en desarrollo y el API de la librería cambia con frecuencia. - En este ejemplo (y en el entregable) se propone usar la versión 0.14.2 de mediados de octubre de 2024.
+- La [documentación oficial de CBRkit](https://wi2trier.github.io/cbrkit/cbrkit.html) describe los componentes de la última versión publicada en GitHub
 
-## 2. Uso de CBRkit
+CBRkit usa la herramienta [pdoc](https://pdoc.dev/) para generar la documentación online a partir del código fuente. Es posible instalar `pdoc`  (con `pip install pdoc`) y descargar el código fuente de la versión 0.14.2 para ver su documentación con el comando `pdoc`
+```sh
+$ pip install pdoc
+
+$ wget https://github.com/wi2trier/cbrkit/archive/refs/tags/v0.14.2.zip)
+$ unzip v0.14.2.zip
+
+$ cd cbrkit-0.14.2
+$ pdoc cbrkit            #  ó $HOME/.local/bin/pdoc cbrkit
+```
+
+En la URL `http://localhost:8080` estará disponible la documentación online de la versión 0.14.2 de CBRkit.
+
+
+
+## 2. Tareas propuestas (no entregable)
+
+**Tarea 1.** Análisis del ejemplo
+1. Repasar la explicación de CBRkit de la Sección 3 y del "miniframework" CBR de la Sección 4
+2. Revisar la organización del código del proyecto, prestando atención a:
+   - Identificar las **responsabilidades** comunes (implementadas en la clase "abstracta" `core.CBR`) y las específicas del dominio de la tasación de vehículos (implementadas en la clase "hija" `tasador.TasadorCBR`) 	
+   - Revisar las **métricas de similaridad** definidas en el método `inicializar_retriever()` de `tasador.TasadorCBR` y consultar sus características en la [documentación de CBRkit](https://wi2trier.github.io/cbrkit/cbrkit.html)
+   - Revisar el fichero `main.py` para ver el modo de uso de los componentes del proyecto
+
+
+**Tarea 2.** Modificar métricas de similaridad
+1. Modificar los parámetros y/o añadir métricas de similaridad alternativas en el método `inicializar_retriever()` de `tasador.TasadorCBR`
+2. Probar el efecto que tiene en los `casos_a_resolver.json` de muestra ejecutando `main.py`
+
+**Tarea 3.** Mejorar la fase `reutilizar()`
+1. Porporcionar una implementación alternativa del método `reutilizar()` de `tasador.TasadorCBR`
+   - Reemplazar la media simple de la implementación original por una media ponderada que tenga en cuenta los valores de similaridad de los `casos_similares`
+2. Variar el número de casos similares a extraer (establecido en `main.py` al llamar al constructor de `tasador.TasadorCBR`)
+3. Probar el efecto que tiene en los `casos_a_resolver.json` de muestra
+
+
+## 3. Uso de CBRkit
 
 CBRkit es un toolkit modular en Python para el Razonamiento Basado en Casos. Actualmente se encuentra en desarrollo y en su versión actual permite cargar casos, definir medidas de similitud y realizar la recuperación sobre bases de casos en memoria. 
 
@@ -160,15 +199,15 @@ Más detalles:
 - [Documentación](https://wi2trier.github.io/cbrkit/cbrkit.html)
 - [Paper](https://www.mirkolenz.com/static/ca607f149265ea90aea9579bd78a04bc/Lenz2024CBRkitIntuitiveCaseBased.pdf) y [video](https://www.youtube.com/watch?v=27dG4MagDhE) de presentación
 
-### 2.1 Resumen CBRkit
+### 3.1 Resumen CBRkit
 
 - [Resumen CBRkit (v. 0.14.2)](doc/resumen_cbrkit.md) [[pdf](doc/resumen_cbrkit.pdf)]
 
 
 
-## 3. Uso del "miniframework" CBR
+## 4. Uso del "miniframework" CBR
 
-### 3.1 Módulo `core.py`
+### 4.1 Módulo `core.py`
 
 El módulo `cbr.py` establece una estructura básica para implementar un sistema de Razonamiento Basado en Casos (CBR).
 -  La clase `CBR` define y estructura las fases principales del **ciclo CBR** y sirve como base para implementaciones concretas del ciclo CBR adaptadas a problemas específicos.
@@ -211,7 +250,7 @@ La clase `CBR_DEBUG` permite la depuración del proceso CBR, proporcionando mens
 
 
 
-### 3.2 Módulo `tasador.py`
+### 4.2 Módulo `tasador.py`
 
 El módulo `tasador.py` define la clase **`TasadorCBR`** que a su vez **extiende** (hereda de) la clase **`core.CBR`** y proporciona una **implementación de las 4 fases del ciclo CBR** para resolver un problema de **tasación de vehículos** en base a sus características (atributos como marca, modelo, color, millas recorridas, etc). 
 
