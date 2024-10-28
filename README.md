@@ -250,3 +250,57 @@ El módulo `tasador.py` define la clase **`TasadorCBR`** que a su vez **extiende
 8. **`retener(caso_revisado, casos_similares, similaridades)`:** Implementa/**sobreescribe** la función **`retener()`** de la superclase `CBR` para proporcionar una implementación adecuada al problema de la tasación de vehículos.
    - Decide retener (agregar) en la `base_de_casos` aquellos casos que fueron corregidos. Esto permite al sistema aprender y ajustarse a partir de los errores.
 
+#### Estructura de los casos
+
+La base de casos y los casos a resolver en el CBR implementado por `TasadorCBR` se serializan en JSON y se cargan como un diccionario de tipo `dict[typing.Any, typing.Any]` con el método/clase `cbrkit.loaders.json(path)` de CBRkit.
+
+Los atributos de los casos iniciales (`caso_a_resolver`) y finales (`casos_revisado`) son los mostrados en el siguiente ejemplo:
+
+- **Caso a resolver** (entrada a `ciclo_cbr()`) 
+   ```yaml
+   {
+     "engine": {
+     "drive": "rwd",
+     "fuel": "gas",
+     "transmission": "manual"
+     },
+     "miles": 100,
+     "model": {
+       "make": "corsa",
+       "manufacturer": "opel"
+     },
+     "paint_color": "black",
+     "price": 2202,
+     "title_status": "clean",
+     "type": "compact",
+     "year": 2003
+   }
+   ```
+
+- **Caso revisado** (salida de `ciclo_cbr()`) 
+   ```yaml
+   {
+     "engine": {
+     "drive": "rwd",
+     "fuel": "gas",
+     "transmission": "manual"
+     },
+     "miles": 100,
+     "model": {
+       "make": "corsa",
+       "manufacturer": "opel"
+     },
+     "paint_color": "black",
+     "price": 2202,
+     "title_status": "clean",
+     "type": "compact",
+     "year": 2003,
+     "_meta": {
+        "corregido": True,
+        "exito": False,
+        "id": 100019,
+        "price_predicho": 3345.2,
+        "price_real": 2202
+      }
+   }
+   ```

@@ -1,6 +1,6 @@
 import cbrkit
-import pprint
 import argparse
+import pprint
 import random
 
 from tasador import TasadorCBR
